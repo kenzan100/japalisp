@@ -25,30 +25,40 @@ class LexerTest < MiniTest::Test
     assert_equal [[:DEF, "def"], [:IDENTIFIER, "名前"]], Lexer.new.tokenize("名前っていうのは")
   end
 
-  def test_define2
+  def test_call
     code = <<-CODE
-掛け算っていうのは、
-数字1と数字2を使って、
-数字1と数字2をかけた結果を返すんだよ。
+5と6で掛け算してみて！
 CODE
     tokens = [
-      [:DEF, "def"], [:IDENTIFIER, "掛け算"],
-      [:ARGS, "arg"], [:IDENTIFIER, "数字1"], [:IDENTIFIER, "数字2"],
-      [:RETURN, "返す"], [:*, "かけた結果"], [:IDENTIFIER, "数字1"], [:IDENTIFIER, "数字2"],
-      [:TERM, "。"]
+      [:CALL, "してみて"], [:IDENTIFIER, "掛け算"],
+      [:NUMBER, 5], [:NUMBER, 6]
     ]
     assert_equal tokens, Lexer.new.tokenize(code)
   end
 
-  def test_
+  def test_define2
     code = <<-CODE
-      階乗っていうのは、
-      数字を使って、
-      もしその数字が0だったら1を返して、
-      それ以外だったら
-      同じ事を一つ少ない数字でやった結果とその数字をかけたものを返すんだよ。
-    CODE
-    assert_equal [],
-      Lexer.new.tokenize(code)
+掛け算っていうのは、
+数字Aと数字Bを使って、
+数字Aと数字Bをかけた結果を返すんだよ。
+CODE
+    tokens = [
+      [:DEF, "def"], [:IDENTIFIER, "掛け算"],
+      [:ARGS, "arg"], [:IDENTIFIER, "数字A"], [:IDENTIFIER, "数字B"],
+      [:RETURN, "返す"], [:*, "かけた結果"], [:IDENTIFIER, "数字A"], [:IDENTIFIER, "数字B"]
+    ]
+    assert_equal tokens, Lexer.new.tokenize(code)
   end
+
+  # def test_
+  #   code = <<-CODE
+  #     階乗っていうのは、
+  #     数字を使って、
+  #     もしその数字が0だったら1を返して、
+  #     それ以外だったら
+  #     同じ事を一つ少ない数字でやった結果とその数字をかけたものを返すんだよ。
+  #   CODE
+  #   assert_equal [],
+  #     Lexer.new.tokenize(code)
+  # end
 end

@@ -2,47 +2,43 @@ require 'pp'
 require 'byebug'
 class Lexer
 
-  def scan_operator(chunk)
-    partial_tokens = []
-    if operands = chunk[/\s*(.+)(をかけた結果|をかけたもの)/,1]
-      partial_tokens << [:*, "かけた結果"]
-      identifier_operands = operands.split("と").map do |operand|
-        [:IDENTIFIER, operand]
-      end
-      partial_tokens += identifier_operands
-    end
-    partial_tokens
+  def line_tokenize(code)
+    return [] if code.empty?
+    tokens, rest_code = case
+                        when code[/っていうのは/]
+                          [[[:DEF, "def"]],
+                            code.gsub(/っていうのは.*$/,'')]
+                        when code[/を使って/]
+                          [[[:ARGS, "arg"]],
+                            code.gsub(/を使って.*$/,'')]
+                        when code[/を返す/]
+                          [[[:RETURN, "返す"]],
+                            code.gsub(/を返す.*$/,'')]
+                        when code[/してみて/]
+                          [[[:CALL, "してみて"]],
+                            code.gsub(/してみて.*$/,'')]
+                        when operands = code[/を(かけた結果|かけたもの)/,1]
+                          [[[:*, operands]],
+                            code.gsub(/を(かけた結果|かけたもの).*$/,'')]
+                        when code[/で/]
+                          *rest, last = code.split(/で/)
+                          return line_tokenize(last) + line_tokenize(rest.join)
+                        when code[/と/]
+                          return code.split(/と/).reduce([]) do |accu, partial_code|
+                            accu + line_tokenize(partial_code)
+                          end
+                        when code[/[0-9]+/]
+                          return [[:NUMBER, code[/[0-9]+/].to_i]]
+                        else
+                          return [[:IDENTIFIER, code]]
+                        end
+    tokens + line_tokenize(rest_code)
   end
 
   def tokenize(code)
     code.chomp!
-    tokens = []
-    i = 0 #current char position
-    while i < code.size
-      chunk = code[i..-1]
-      pp chunk
-      case
-      when def_matched = chunk[/\s*(.+)っていうのは/, 1]
-        tokens << [:DEF, "def"] << [:IDENTIFIER, def_matched]
-        i += chunk[/.+っていうのは/].size
-      when arg_matched = chunk[/\s*(.+)を使って/,1]
-        args = arg_matched.split("と")
-        identifier_args = args.map do |arg|
-          [:IDENTIFIER, arg]
-        end
-        tokens << [:ARGS, "arg"]
-        tokens += identifier_args
-        i += chunk[/.+を使って/].size
-      when return_matched = chunk[/\s*(.+)を返す/,1]
-        tokens << [:RETURN, "返す"]
-        tokens += scan_operator(return_matched)
-        i += chunk[/.+を返す.+$/].size
-      when chunk[/.+。$/]
-        tokens << [:TERM, "。"]
-        i += chunk[/.+。$/].size
-      else
-        i += chunk.size
-      end
+    tokens = code.split("\n").reduce([]) do |acc, line|
+      acc + line_tokenize(line)
     end
     tokens
   end
