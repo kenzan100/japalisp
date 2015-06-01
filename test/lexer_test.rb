@@ -9,7 +9,6 @@ require_relative "../lexer"
 #
 # define 階乗
 #
-#
 # 5が欲しいっていうのは、
 # 5を返すんだよ。
 #
