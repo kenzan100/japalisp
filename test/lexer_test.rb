@@ -20,32 +20,34 @@ require_relative "../lexer"
 
 
 class LexerTest < MiniTest::Test
-  def test_define
-    assert_equal [[:DEF, "def"], [:IDENTIFIER, "名前"]], Lexer.new.tokenize("名前っていうのは")
-  end
+  # def test_define
+  #   assert_equal [[:DEF, "def"], [:IDENTIFIER, "名前"]], Lexer.new.tokenize("名前っていうのは")
+  # end
 
   def test_call
+    # (掛け算 5 6)
     code = <<-CODE
 5と6で掛け算してみて！
 CODE
-    tokens = [
-      [:CALL, "してみて"], [:IDENTIFIER, "掛け算"],
-      [:NUMBER, 5], [:NUMBER, 6]
-    ]
+    tokens = [[ #sentence
+      ["掛け算", 5, 6],
+    ]]
     assert_equal tokens, Lexer.new.tokenize(code)
   end
 
   def test_define2
+    # (define (掛け算 数字A 数字B)
+    #   (* 数字A 数字B))
     code = <<-CODE
 掛け算っていうのは、
 数字Aと数字Bを使って、
 数字Aと数字Bをかけた結果を返すんだよ。
 CODE
-    tokens = [
-      [:DEF, "def"], [:IDENTIFIER, "掛け算"],
-      [:ARGS, "arg"], [:IDENTIFIER, "数字A"], [:IDENTIFIER, "数字B"],
-      [:RETURN, "返す"], [:*, "かけた結果"], [:IDENTIFIER, "数字A"], [:IDENTIFIER, "数字B"]
-    ]
+    tokens = [[
+      [:DEFINE, "掛け算"],
+      ["数字A", "数字B"],
+      ["*", "数字A", "数字B"]
+    ]]
     assert_equal tokens, Lexer.new.tokenize(code)
   end
 

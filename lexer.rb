@@ -2,44 +2,57 @@ require 'pp'
 require 'byebug'
 class Lexer
 
-  def line_tokenize(code)
-    return [] if code.empty?
-    tokens, rest_code = case
-                        when code[/っていうのは/]
-                          [[[:DEF, "def"]],
-                            code.gsub(/っていうのは.*$/,'')]
-                        when code[/を使って/]
-                          [[[:ARGS, "arg"]],
-                            code.gsub(/を使って.*$/,'')]
-                        when code[/を返す/]
-                          [[[:RETURN, "返す"]],
-                            code.gsub(/を返す.*$/,'')]
-                        when code[/してみて/]
-                          [[[:CALL, "してみて"]],
-                            code.gsub(/してみて.*$/,'')]
-                        when operands = code[/を(かけた結果|かけたもの)/,1]
-                          [[[:*, operands]],
-                            code.gsub(/を(かけた結果|かけたもの).*$/,'')]
-                        when code[/で/]
-                          *rest, last = code.split(/で/)
-                          return line_tokenize(last) + line_tokenize(rest.join)
-                        when code[/と/]
-                          return code.split(/と/).reduce([]) do |accu, partial_code|
-                            accu + line_tokenize(partial_code)
-                          end
-                        when code[/[0-9]+/]
-                          return [[:NUMBER, code[/[0-9]+/].to_i]]
-                        else
-                          return [[:IDENTIFIER, code]]
-                        end
-    tokens + line_tokenize(rest_code)
-  end
-
   def tokenize(code)
     code.chomp!
-    tokens = code.split("\n").reduce([]) do |acc, line|
-      acc + line_tokenize(line)
+    tokens = code.split(/。|！/).reduce([]) do |acc, sentence|
+      acc << sentence_tokenize(sentence)
+      acc
     end
     tokens
   end
+
+  private
+
+  def sentence_tokenize(sentence)
+    sentence.chomp!
+    tokens = sentence.split("\n").reduce([]) do |acc, line|
+      acc << line_tokenize(line)
+    end
+    tokens
+  end
+
+  def line_tokenize(line)
+    line.chomp!
+    return [] if line.empty?
+    tokens, rest_of_line = case
+                        when line[/っていうのは/]
+                          [[:DEFINE],
+                            line.gsub(/っていうのは.*$/,'')]
+                        when line[/を使って/]
+                          [[],
+                            line.gsub(/を使って.*$/,'')]
+                        when line[/を返す/]
+                          [[],
+                            line.gsub(/を返す.*$/,'')]
+                        when line[/してみて/]
+                          [[],
+                            line.gsub(/してみて.*$/,'')]
+                        when line[/を(かけた結果|かけたもの)/]
+                          [["*"],
+                            line.gsub(/を(かけた結果|かけたもの).*$/,'')]
+                        when line[/で/]
+                          *rest, last = line.split(/で/)
+                          return line_tokenize(last) + line_tokenize(rest.join)
+                        when line[/と/]
+                          return line.split(/と/).reduce([]) do |accu, partial_line|
+                            accu + line_tokenize(partial_line)
+                          end
+                        when line[/[0-9]+/]
+                          return [line[/[0-9]+/].to_i]
+                        else
+                          return [line]
+                        end
+    tokens + line_tokenize(rest_of_line)
+  end
+
 end
