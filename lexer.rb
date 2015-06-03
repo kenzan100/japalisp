@@ -3,7 +3,7 @@ require 'byebug'
 class Lexer
 
   def tokenize(code)
-    code.chomp!
+    code.strip!
     tokens = code.split(/。|！/).reduce([]) do |acc, sentence|
       acc << sentence_tokenize(sentence)
       acc
@@ -14,7 +14,7 @@ class Lexer
   private
 
   def sentence_tokenize(sentence)
-    sentence.chomp!
+    sentence.strip!
     tokens = sentence.split("\n").reduce([]) do |acc, line|
       acc << line_tokenize(line)
     end
@@ -22,7 +22,7 @@ class Lexer
   end
 
   def line_tokenize(line)
-    line.chomp!
+    line.strip!
     return [] if line.empty?
     tokens, rest_of_line = case
                         when line[/っていうのは/]

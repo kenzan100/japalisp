@@ -16,13 +16,8 @@ require_relative "../lexer"
 # 5
 #
 # [[:DEF, "def"], [:IDENTIFIER, "5が欲しい"],
-#
-
 
 class LexerTest < MiniTest::Test
-  # def test_define
-  #   assert_equal [[:DEF, "def"], [:IDENTIFIER, "名前"]], Lexer.new.tokenize("名前っていうのは")
-  # end
 
   def test_call
     # (掛け算 5 6)
@@ -42,11 +37,14 @@ CODE
 掛け算っていうのは、
 数字Aと数字Bを使って、
 数字Aと数字Bをかけた結果を返すんだよ。
+5と6で掛け算してみて！
 CODE
     tokens = [[
       [:DEFINE, "掛け算"],
       ["数字A", "数字B"],
       ["*", "数字A", "数字B"]
+    ],[
+      ["掛け算", 5, 6],
     ]]
     assert_equal tokens, Lexer.new.tokenize(code)
   end
