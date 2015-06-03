@@ -5,7 +5,6 @@ token IDENTIFIER
 token NUMBER
 token CALL
 token ARGS
-token RETURN
 token TERM
 token IF
 
@@ -57,7 +56,7 @@ rule
   ;
 
   Def:
-    DEF IDENTIFIER ARGS Arguments Expressions  { result = DefNode.new(val[1], val[3], val[4] }
+    DEF IDENTIFIER ARGS Arguments Expressions  { result = DefNode.new(val[1], val[3], val[4]) }
   ;
 
   If:
@@ -66,13 +65,17 @@ rule
 end
 
 ---- header
-  require "lexer"
-  require "nodes"
+  require_relative "lexer"
+  require_relative "nodes"
 
 ---- inner
-  def parse(code, show_tokens=false)
-    @tokens = Lexer.new.tokenize(code)
-    puts @tokens.inspect if show_tokens
+  def parse(code, feed_tokens=false)
+    if feed_tokens
+      @tokens = code
+    else
+      @tokens = Lexer.new.tokenize(code)
+    end
+    # puts @tokens.inspect if show_tokens
     do_parse
   end
 
