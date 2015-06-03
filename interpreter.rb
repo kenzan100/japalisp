@@ -50,8 +50,6 @@ class Interpreter
         rambda
       end
     end
-  rescue
-    byebug
   end
 
   def default_env

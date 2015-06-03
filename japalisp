@@ -2,6 +2,7 @@
 
 require "interpreter"
 require "readline"
+require "byebug"
 
 interpreter = Interpreter.new
 
