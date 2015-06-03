@@ -19,26 +19,46 @@ class Interpreter
 
   def sentence_eval(code,env)
     if code.is_a?(String)
-      return env.find(code)
+      return env.find(code) if env.find(code)
+      raise "#{code}って聞いたことないなー..。打ち間違いだったりしない？"
     elsif code.is_a?(Numeric)
       return code
     end
 
     case code[0][0]
     when :DEFINE
+      keys = code[1]
+      body = code[2..-1]
       env[code[0][1]] = lambda do |*args|
-        sentence_eval(code[2], Env.new(code[1], args, env))
+        sentence_eval(body, Env.new(keys, args, env))
+      end
+    when :IF
+      predicate = code[0][1]
+      if sentence_eval(predicate, env)
+        sentence_eval(code[0][2], env)
+      elsif code[1][0] == :ELSE
+        sentence_eval(code[2], env)
+      else
+        raise "ちょっとよく分からない。。\n\n#{code}"
       end
     else
-      expressions = code.flatten.map{ |exp| sentence_eval(exp, env) }
+      expressions = code.map{ |exp| sentence_eval(exp, env) }
       rambda = expressions.shift
-      rambda.call(*expressions)
+      if rambda.is_a?(Proc)
+        rambda.call(*expressions)
+      else
+        rambda
+      end
     end
+  rescue
+    byebug
   end
 
   def default_env
     Env[{
-      "*" => lambda{|a,b| a * b}
+      "*"  => lambda{|a,b| a * b},
+      "==" => lambda{|a,b| a == b},
+      "-"  => lambda{|a,b| a - b}
     }]
   end
 end

@@ -19,18 +19,7 @@ require_relative "../lexer"
 
 class LexerTest < MiniTest::Test
 
-  def test_call
-    # (掛け算 5 6)
-    code = <<-CODE
-5と6で掛け算してみて！
-CODE
-    tokens = [[ #sentence
-      ["掛け算", 5, 6],
-    ]]
-    assert_equal tokens, Lexer.new.tokenize(code)
-  end
-
-  def test_define2
+  def test_define
     # (define (掛け算 数字A 数字B)
     #   (* 数字A 数字B))
     code = <<-CODE
@@ -42,22 +31,36 @@ CODE
     tokens = [[
       [:DEFINE, "掛け算"],
       ["数字A", "数字B"],
-      ["*", "数字A", "数字B"]
+      ["*", ["数字A"], ["数字B"]]
     ],[
-      ["掛け算", 5, 6],
+      ["掛け算", [5], [6]],
     ]]
     assert_equal tokens, Lexer.new.tokenize(code)
   end
 
-  # def test_
-  #   code = <<-CODE
-  #     階乗っていうのは、
-  #     数字を使って、
-  #     もしその数字が0だったら1を返して、
-  #     それ以外だったら
-  #     同じ事を一つ少ない数字でやった結果とその数字をかけたものを返すんだよ。
-  #   CODE
-  #   assert_equal [],
-  #     Lexer.new.tokenize(code)
-  # end
+  def test_factorial
+    code = <<-CODE
+階乗っていうのは、
+数字を使って、
+もしその数字が0だったら1を返して、
+それ以外だったら
+その数字と、その数字から1を引いた数で階乗をした結果をかけたものを返すんだよ。
+CODE
+    assert_equal [[
+      [:DEFINE, "階乗"],
+      ["数字"],
+      [:IF, ["==", "数字", 0], [1]],
+      [:ELSE],
+      ["*", ["数字"], ["階乗", ["-", ["数字"], [1]]]]
+    ]],
+      Lexer.new.tokenize(code)
+  end
+
+  def test_body
+    code = "その数字と、その数字から1を引いた数で階乗をした結果をかけたものを返すんだよ。"
+    tokens = [[
+      ["*", ["数字"], ["階乗", ["-", ["数字"], [1]]]]
+    ]]
+    assert_equal tokens, Lexer.new.tokenize(code)
+  end
 end
