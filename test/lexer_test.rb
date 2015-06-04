@@ -1,23 +1,21 @@
 require 'minitest/autorun'
 require_relative "../lexer"
 
-# 階乗っていうのは、
-# 数字を一つ使って、
-# もしその数字が0だったら1を返して、
-# それ以外だったら
-# 同じ事を一つ少ない数字でやった結果とその数字をかけたものを返すんだよ。
-#
-# define 階乗
-#
-# 5が欲しいっていうのは、
-# 5を返すんだよ。
-#
-# define 5が欲しい
-# 5
-#
-# [[:DEF, "def"], [:IDENTIFIER, "5が欲しい"],
-
 class LexerTest < MiniTest::Test
+
+  # 7 primitives according to PG
+  #
+  # 1. quote
+  # 2. atom
+  # 3. eq
+  # 4. car
+  # 5. cdr
+  # 6. cons
+  # 7. cond
+  #
+  # a. lambda
+  # b. label
+  # c. defun
 
   def test_define
     # (define (掛け算 数字A 数字B)
@@ -56,11 +54,15 @@ CODE
       Lexer.new.tokenize(code)
   end
 
-  def test_body
-    code = "その数字と、その数字から1を引いた数で階乗をした結果をかけたものを返すんだよ。"
-    tokens = [[
-      ["*", ["数字"], ["階乗", ["-", ["数字"], [1]]]]
-    ]]
-    assert_equal tokens, Lexer.new.tokenize(code)
+  def test_subst
+    code = <<-CODE
+置き換えっていうのは、
+AとBとCを使って、
+もしCがアトムでBだったら、Aを返して、
+それ以外だったら
+Cの先っちょで置き換えをした結果と
+Cの残りで置き換えをした結果をつなげたものを返すんだよ。
+CODE
   end
+
 end
