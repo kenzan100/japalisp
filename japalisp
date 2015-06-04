@@ -15,16 +15,14 @@ loop do
   begin
     all_text = ''
     while(line = Readline::readline(">> ", true)) != ""
-      all_text << line + "\n"
+      all_text << line + "\n" unless line.nil?
     end
     puts interpreter.eval(all_text)
   rescue StandardError => e
     puts e
     puts e.backtrace
+  rescue Interrupt
+    puts
+    exit 0
   end
-end
-
-trap "SIGINT" do
-  puts "Exit"
-  exit 130
 end
