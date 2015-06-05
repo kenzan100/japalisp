@@ -28,5 +28,51 @@ CODE
     assert_equal 24, Interpreter.new.eval(code)
   end
 
+  def test_my_adder
+    code = <<-CODE
+俺の足し算っていうのは、
+数字Aと数字Bを使って、
+もし数字Bが0なら数字Aを返して、
+それ以外だったら
+数字Aと、数字Bから1を引いた数で俺の足し算をした結果に1を足したものを返すんだよ。
+
+34と66で俺の足し算してみて！
+CODE
+    assert_equal 100, Interpreter.new.eval(code)
+  end
+
+  def test_my_multiplier
+    code = <<-CODE
+俺の足し算っていうのは、
+数字Aと数字Bを使って、
+もし数字Bが0なら数字Aを返して、
+それ以外だったら
+数字Aと、数字Bから1を引いた数で俺の足し算をした結果に1を足したものを返すんだよ。
+
+俺の掛け算っていうのは、
+数字Aと数字Bを使って、
+もし数字Bが0なら0を返して、
+それ以外なら
+数字Aと、数字Aと数字Bから1を引いた数で俺の掛け算をした結果で俺の足し算をしたものを返すんだよ。
+
+5と6で俺の掛け算してみて！
+CODE
+    assert_equal 30, Interpreter.new.eval(code)
+  end
+
+  def test_my_comparator
+    code = <<-CODE
+左が大きいかどうかっていうのは、
+数字Aと数字Bを使って、
+もし数字Aが0なら「違うよ」を返して、
+もし数字Bが0なら「そうだよ」を返して、
+それ以外だったら
+数字Aから1を引いた数と、数字Bから1を引いた数で左が大きいかどうか計算した結果を返すんだよ。
+
+10と6で左が大きいかどうか教えて！
+CODE
+  end
+
+  assert_equal "そうだよ", Interpreter.new.eval(code)
 end
 

@@ -56,7 +56,8 @@ class Interpreter
     Env[{
       "*"  => lambda{|a,b| a * b},
       "==" => lambda{|a,b| a == b},
-      "-"  => lambda{|a,b| a - b}
+      "-"  => lambda{|a,b| a - b},
+      "+"  => lambda{|a,b| a + b}
     }]
   end
 end

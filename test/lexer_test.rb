@@ -54,15 +54,51 @@ CODE
       Lexer.new.tokenize(code)
   end
 
-  def test_subst
+  def test_my_adder
     code = <<-CODE
-置き換えっていうのは、
-AとBとCを使って、
-もしCがアトムでBだったら、Aを返して、
+俺の足し算っていうのは、
+数字Aと数字Bを使って、
+もし数字Bが0なら数字Aを返して、
 それ以外だったら
-Cの先っちょで置き換えをした結果と
-Cの残りで置き換えをした結果をつなげたものを返すんだよ。
+数字Aと、数字Bから1を引いた数で俺の足し算をした結果に1を足したものを返すんだよ。
 CODE
+    tokens = [[
+      [:DEFINE, "俺の足し算"],
+      ["数字A", "数字B"],
+      [:IF, ["==", "数字B", 0], ["数字A"]],
+      [:ELSE],
+      ["+", ["俺の足し算", ["数字A"], ["-", ["数字B"], [1]]], [1]]
+    ]]
+    assert_equal tokens, Lexer.new.tokenize(code)
   end
 
+  def test_my_multiplier
+    code = <<-CODE
+数字Aと、数字Aと数字Bから1を引いた数で俺の掛け算をした結果で俺の足し算をしたものを返すんだよ。
+CODE
+    tokens = [[
+      ["俺の足し算", ["数字A"], ["俺の掛け算", ["数字A"], ["-", ["数字B"], [1]]]]
+    ]]
+    assert_equal tokens, Lexer.new.tokenize(code)
+  end
+
+  def test_my_comparator
+    code = <<-CODE
+左が大きいかどうかっていうのは、
+数字Aと数字Bを使って、
+もし数字Aが0なら「違うよ」を返して、
+もし数字Bが0なら「そうだよ」を返して、
+それ以外だったら
+数字Aから1を引いた数と、数字Bから1を引いた数で左が大きいかどうか計算した結果を返すんだよ。
+CODE
+    tokens = [[
+      [:DEFINE, "左が大きいかどうか"],
+      ["数字A", "数字B"],
+      [:IF, ["==", "数字A", 0], [:STR, "違うよ"]],
+      [:IF, ["==", "数字B", 0], [:STR, "そうだよ"]],
+      [:ELSE],
+      ["左が大きいかどうか", ["-", ["数字A"], [1]], ["-", ["数字B"], [1]]]
+    ]]
+    assert_equal tokens, Lexer.new.tokenize(code)
+  end
 end

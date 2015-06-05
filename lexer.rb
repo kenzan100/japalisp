@@ -22,6 +22,7 @@ class Lexer
   end
 
   def line_tokenize(line)
+    return [] if line.nil?
     line.strip!
     return [] if line.empty?
     tokens, rest_of_line = case
@@ -35,18 +36,27 @@ class Lexer
                             line_tokenize(predicate),
                             line_tokenize(body)
                           ]
-                        when line[/それ以外だったら/]
+                        when line[/それ以外(だったら|なら)/]
                           [[:ELSE],
-                            line.gsub(/それ以外だったら.*$/,'')]
+                            line.gsub(/それ以外(だったら|なら).*$/,'')]
                         when line[/を使って/]
                           [[],
                             line.gsub(/を使って.*$/,'')]
                         when line[/を(返す|返して)/]
                           [[],
                             line.gsub(/を(返す|返して).*$/,'')]
-                        when line[/をした結果/]
-                          [[],
-                            line.gsub(/をした結果/,'')]
+                        when line[/をした(結果|もの)$/]
+                          line.gsub!(/をした(結果|もの)$/, '')
+                          *arguments, _unused, id = line.split(/(で)/)
+                          splitter = if arguments.join.split(/と、/).length > 1
+                                       "と、"
+                                     else
+                                       "と"
+                                     end
+                          return [id] +
+                          arguments.join.split(splitter).map do |arg|
+                            line_tokenize(arg)
+                          end
                         when line[/してみて/]
                           [[],
                             line.gsub(/してみて.*$/,'')]
@@ -54,6 +64,12 @@ class Lexer
                           line.gsub!(/を(かけた結果|かけたもの).*$/,'')
                           return ["*"] +
                             line.split(/と、?/).map do |argument|
+                              line_tokenize(argument)
+                            end
+                        when line[/を足した(もの|数)$/]
+                          line.gsub!(/を足した(もの|数)/,'')
+                          return ["+"] +
+                            line.split(/に/).map do |argument|
                               line_tokenize(argument)
                             end
                         when line[/を引いた数$/]
