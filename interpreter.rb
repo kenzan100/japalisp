@@ -1,4 +1,5 @@
 require 'byebug'
+require 'pp'
 require_relative 'lexer'
 
 class Interpreter
@@ -25,6 +26,11 @@ class Interpreter
       return code
     end
 
+    case code[0]
+    when :STR
+      return code[1]
+    end
+
     case code[0][0]
     when :DEFINE
       keys = code[1]
@@ -33,14 +39,19 @@ class Interpreter
         sentence_eval(body, Env.new(keys, args, env))
       end
     when :IF
-      predicate = code[0][1]
-      if sentence_eval(predicate, env)
-        sentence_eval(code[0][2], env)
-      elsif code[1][0] == :ELSE
-        sentence_eval(code[2], env)
-      else
-        raise "ちょっとよく分からない。。\n\n#{code}"
+      line_index = 0
+      while code[line_index][0] == :IF
+        predicate = code[line_index][1]
+        if sentence_eval(predicate, env)
+          return sentence_eval(code[line_index][2], env)
+        end
+        line_index += 1
       end
+      if code[line_index][0] == :ELSE
+        return sentence_eval(code[line_index+1], env)
+      end
+    when :STR
+      code[0][1]
     else
       expressions = code.map{ |exp| sentence_eval(exp, env) }
       rambda = expressions.shift
