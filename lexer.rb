@@ -86,7 +86,7 @@ class Lexer
                         # 助詞 / Particle
                         when line[/が/]
                           first, second = line.split(/が/)
-                          return ["==", line_tokenize(first), line_tokenize(second)].flatten
+                          return ["==", line_tokenize(first), line_tokenize(second)]
                         when line[/で/]
                           *rest, last = line.split(/で/)
                           return line_tokenize(last) +
