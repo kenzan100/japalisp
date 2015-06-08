@@ -1,0 +1,32 @@
+<link href="jqconsole.css" rel="stylesheet" type="text/css">
+<div id="console"></div>
+<script src="jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="2.11.0.jqconsole.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="jexer.js" type="text/javascript" charset="utf-8"></script>
+<script src="japalisp.js" type="text/javascript" charset="utf-8"></script>
+<script>
+  $(function () {
+    var jqconsole = $('#console').jqconsole('Hi\n', '>>>');
+    var startPrompt = function () {
+      // Start the prompt with history enabled.
+      jqconsole.Prompt(true, function (input) {
+        // Output input with the class jqconsole-output.
+        try{
+          var input = input.trim();
+          var tokens = Jexer.tokenizeWhole(input);
+          jqconsole.Write(Japalisp.eval(tokens, Japalisp.globalEnvironment) + '\n', 'jqconsole-output');
+        }
+        catch(e){
+          jqconsole.Write(e + '\n', 'jqconsole-output');
+        }
+        // Restart the prompt.
+        startPrompt();
+      }, function(input) {
+        // if true, input continues to next line.
+        console.log(input);
+        return !input.match("  $");
+      });
+    };
+    startPrompt();
+  });
+</script>
