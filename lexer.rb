@@ -72,10 +72,11 @@ class Lexer
                             line.split(/に/).map do |argument|
                               line_tokenize(argument)
                             end
-                        when line[/を引いた数$/]
-                          line.gsub!(/を引いた数/,'')
+                        when line[/を引いた(もの|数)$/]
+                          line.gsub!(/を引いた(もの|数)$/,'')
+                          *rest, _stripping, last = line.split(/(から)/)
                           return ["-"] +
-                            line.split(/から/).map do |argument|
+                            [rest.join, last].map do |argument|
                               line_tokenize(argument)
                             end
                         when line[/その/]

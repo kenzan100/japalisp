@@ -72,6 +72,7 @@ CODE
     assert_equal tokens, Lexer.new.tokenize(code)
   end
 
+
   def test_my_multiplier
     code = <<-CODE
 数字Aと、数字Aと数字Bから1を引いた数で俺の掛け算をした結果で俺の足し算をしたものを返すんだよ。
@@ -141,4 +142,23 @@ CODE
     ]]
     assert_equal tokens, Lexer.new.tokenize(code)
   end
+
+  def test_my_subtraction
+    code = <<-CODE
+俺の引き算っていうのは、
+数字Aと数字Bを使って、
+もし数字Bが0なら数字Aを返して、
+それ以外だったら
+数字Aと、数字Bから1を引いた数で俺の引き算をした結果から1を引いたものを返すんだよ。
+CODE
+    tokens = [[
+      [:DEFINE, "俺の引き算"],
+      ["数字A", "数字B"],
+      [:IF, ["==", ["数字B"], [0]], ["数字A"]],
+      [:ELSE],
+      ["-", ["俺の引き算", ["数字A"], ["-", ["数字B"], [1]]], [1]]
+    ]]
+    assert_equal tokens, Lexer.new.tokenize(code)
+  end
+
 end
