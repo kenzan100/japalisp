@@ -3,15 +3,17 @@ var Jexer = {};
 Jexer.tokenizeWhole = function(code){
   var tokens;
   tokens = code.split(/。|！/).reduce(function(acc,sentence){
-    return acc.concat(Jexer.tokenizeSentence(sentence));
+    acc.push(Jexer.tokenizeSentence(sentence));
+    return acc
   },[]);
   return tokens
 }
 
 Jexer.tokenizeSentence = function(sentence){
   var tokens;
-  tokens = sentence.split('\n').reduce(function(acc,line){
-    return acc.concat(Jexer.tokenize(line));
+  tokens = sentence.split(/\s+/).reduce(function(acc,line){
+    acc.push(Jexer.tokenize(line));
+    return acc
   },[]);
   return tokens;
 }

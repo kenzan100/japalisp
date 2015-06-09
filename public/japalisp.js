@@ -10,23 +10,16 @@ Japalisp.Environment = function(table, outer) {
       return this.table[sym]
     }
   }
-  this.merge = function(keys, vals){
-    keys.forEach(function(key,i){
-      this.table.key = vals[i]
-    })
-    return this.table
-  }
 }
 
 Japalisp.globalEnvironment = new Japalisp.Environment({
-  "*":  function(a,b){ return a * b },
-  "==": function(a,b){ return a === b},
-  "-":  function(a,b){ return a - b},
-  "+":  function(a,b){ return a + b}
+  "*":  function(){ console.log(arguments); return arguments[0] * arguments[1] },
+  "==": function(){ return a === b},
+  "-":  function(){ return a - b},
+  "+":  function(){ return a + b}
 });
 
 Japalisp.eval = function(exp, env){
-  console.log(exp);
   if(typeof exp === "string") {
     var sym = env.find(exp);
     if(sym === undefined){
@@ -45,12 +38,15 @@ Japalisp.eval = function(exp, env){
 
   var id = exp[0][0] //checking first element within nested array, since our lexer returns nested array.
   if(id === "DEFINE"){
-    var keys = code[1],
-      body = code.slice(2)
-    env.table[exp[0][1]] = function(args){
-      var newEnv = new Japalisp.Environment({})
-      newEnv.merge(keys, args)
-      return Japalisp.eval(body, newEnv)
+    var keys = exp[1],
+        body = exp.slice(2)
+    env.table[exp[0][1]] = function(){
+      var kv = {};
+      var args = arguments;
+      keys.forEach(function(key,i,arr){
+        kv[key] = args[i]
+      });
+      return Japalisp.eval(body, new Japalisp.Environment(kv, env))
     }
   }else if(id === "IF"){
     var lineIndex = 0
@@ -62,7 +58,7 @@ Japalisp.eval = function(exp, env){
       lineIndex += 1;
     }
     if(exp[lineIndex][0] === "ELSE"){
-      return Japalisp.eval(code[lineIndex+1],env)
+      return Japalisp.eval(exp[lineIndex+1],env)
     }
   }else if(id === "STR"){
     return exp[0][1]
@@ -74,7 +70,7 @@ Japalisp.eval = function(exp, env){
     if(typeof rambda === "function"){
       return rambda.apply(this, expressions);
     }else{
-      return rambda
+      return rambda;
     }
   }
 }

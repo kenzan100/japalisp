@@ -7,6 +7,9 @@
 <script>
   $(function () {
     var jqconsole = $('#console').jqconsole('Hi\n', '>>>');
+    var sample = "掛け算っていうのは AとBを使って AとBをかけた結果を返すんだよ";
+    console.log(Jexer.tokenizeWhole(sample));
+    Japalisp.eval(Jexer.tokenizeWhole(sample), Japalisp.globalEnvironment);
     var startPrompt = function () {
       // Start the prompt with history enabled.
       jqconsole.Prompt(true, function (input) {
@@ -14,7 +17,8 @@
         try{
           var input = input.trim();
           var tokens = Jexer.tokenizeWhole(input);
-          jqconsole.Write(Japalisp.eval(tokens, Japalisp.globalEnvironment) + '\n', 'jqconsole-output');
+          var retval = Japalisp.eval(tokens, Japalisp.globalEnvironment);
+          jqconsole.Write(retval + 'だと思う!' + '\n', 'jqconsole-output');
         }
         catch(e){
           jqconsole.Write(e + '\n', 'jqconsole-output');
@@ -23,7 +27,6 @@
         startPrompt();
       }, function(input) {
         // if true, input continues to next line.
-        console.log(input);
         return !input.match("  $");
       });
     };
