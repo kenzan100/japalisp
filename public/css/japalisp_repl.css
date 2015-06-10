@@ -4,6 +4,7 @@ body {
   height: 100%;
   width: 100%;
   margin: 0;
+  font-family: "Courier New", monospace;
   }
   a,
   a:visited {
@@ -12,7 +13,7 @@ body {
   /* The console container element */
   #console {
     position: absolute;
-    width: 100%;
+    width: 70%;
     height: 100%;
     background-color:  white;
   }

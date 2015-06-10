@@ -1,13 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
     <title>Japalisp REPL</title>
+    <link rel="stylesheet" media="all" href="css/style.css">
     <link rel="stylesheet" media="all" href="css/japalisp_repl.css">
     <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/2.11.0.jqconsole.min.js" type="text/javascript" charset="utf-8"></script>
   </head>
   <body>
-    <div id="console"></div>
+    <div class="wrapper">
+      <div id="console"></div>
+      <nav class="nav">
+        <a href="test.html">test(開発者向け)</a>
+        <h3>最初から出来ることの例</h3>
+        41と59で掛け算してみて
+      </nav>
+    </div>
     <script src="js/jexer.js" type="text/javascript" charset="utf-8"></script>
     <script src="js/japalisp.js" type="text/javascript" charset="utf-8"></script>
     <script>

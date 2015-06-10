@@ -1,0 +1,9 @@
+nav.nav{
+  float: right;
+  width: 25%;
+  margin-top: 40px;
+}
+#console{
+  float: left;
+  width: 70%;
+}
