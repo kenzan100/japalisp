@@ -14,6 +14,12 @@
         <a href="test.html">test(開発者向け)</a>
         <h3>最初から出来ることの例</h3>
         41と59で掛け算してみて
+        <h3>何かを覚えさせたいときは</h3>
+        階乗っていうのは<br/>
+        数字を使って<br/>
+        もしその数字が1だったら1を返して<br/>
+        それ以外だったら<br/>
+        その数字と、その数字から1を引いた数で階乗をした結果をかけたものを返すんだよ
       </nav>
     </div>
     <script src="js/jexer.js" type="text/javascript" charset="utf-8"></script>
@@ -22,7 +28,6 @@
       $(function () {
         var jqconsole = $('#console').jqconsole('Japalisp REPL「日本語で計算してみよう」\n', '>>>');
         var sample = "掛け算っていうのは AとBを使って AとBをかけた結果を返すんだよ";
-        console.log(Jexer.tokenizeWhole(sample));
         Japalisp.eval(Jexer.tokenizeWhole(sample), Japalisp.globalEnvironment);
         var startPrompt = function () {
           // Start the prompt with history enabled.
@@ -32,7 +37,7 @@
               var input = input.trim();
               var tokens = Jexer.tokenizeWhole(input);
               var retval = Japalisp.eval(tokens, Japalisp.globalEnvironment);
-              jqconsole.Write(retval + 'だと思う!' + '\n', 'jqconsole-output');
+              jqconsole.Write(retval + 'だね!' + '\n', 'jqconsole-output');
             }
             catch(e){
               jqconsole.Write(e + '\n', 'jqconsole-output');

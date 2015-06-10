@@ -13,10 +13,10 @@ Japalisp.Environment = function(table, outer) {
 }
 
 Japalisp.globalEnvironment = new Japalisp.Environment({
-  "*":  function(){ console.log(arguments); return arguments[0] * arguments[1] },
-  "==": function(){ return a === b},
-  "-":  function(){ return a - b},
-  "+":  function(){ return a + b}
+  "*":  function(a, b){ return a * b },
+  "==": function(a, b){ return a === b},
+  "-":  function(a, b){ return a - b},
+  "+":  function(a, b){ return a + b}
 });
 
 Japalisp.eval = function(exp, env){
@@ -48,6 +48,7 @@ Japalisp.eval = function(exp, env){
       });
       return Japalisp.eval(body, new Japalisp.Environment(kv, env))
     }
+    return exp[0][1]
   }else if(id === "IF"){
     var lineIndex = 0
     while(exp[lineIndex][0] === "IF"){
