@@ -3,7 +3,10 @@ var Jexer = {};
 Jexer.tokenizeWhole = function(code){
   var tokens;
   tokens = code.split(/。|！/).reduce(function(acc,sentence){
-    acc.push(Jexer.tokenizeSentence(sentence));
+    var partial_tokens = Jexer.tokenizeSentence(sentence);
+    if(JSON.stringify(partial_tokens) !== '[[""]]'){
+      acc.push(partial_tokens);
+    }
     return acc
   },[]);
   return tokens
@@ -12,7 +15,8 @@ Jexer.tokenizeWhole = function(code){
 Jexer.tokenizeSentence = function(sentence){
   var tokens;
   tokens = sentence.split(/\s+/).reduce(function(acc,line){
-    acc.push(Jexer.tokenize(line));
+    var partial_tokens = Jexer.tokenize(line);
+    acc.push(partial_tokens);
     return acc
   },[]);
   return tokens;
@@ -80,7 +84,7 @@ Jexer.tokenize = function(line){
     var rest = line.replace(/その/g,'');
     return Jexer.tokenize(rest);
   }else if( strMatch = line.match(/^「(.*)」$/)){
-    return ["STR", str[1]]
+    return ["STR", strMatch[1]]
   }else if( line.match(/が/) ){
     var args = line.split(/が/);
     return ["==", Jexer.tokenize(args[0]), Jexer.tokenize(args[1])]

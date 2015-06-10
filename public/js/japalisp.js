@@ -36,6 +36,10 @@ Japalisp.eval = function(exp, env){
     return exp[1]
   }
 
+  if(exp[0] === undefined){
+    return "何も書いてないみたい"
+  }
+
   var id = exp[0][0] //checking first element within nested array, since our lexer returns nested array.
   if(id === "DEFINE"){
     var keys = exp[1],
