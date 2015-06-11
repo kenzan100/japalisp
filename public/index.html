@@ -28,7 +28,7 @@
     <script src="js/japalisp.js" type="text/javascript" charset="utf-8"></script>
     <script>
       $(function () {
-        var jqconsole = $('#console').jqconsole('Japalisp REPL「日本語で計算してみよう」\n', '>>>');
+        var jqconsole = $('#console').jqconsole('Japalisp REPL「日本語で計算してみよう」\n実行するときは、Enterを二回押してください\n', '>>>');
         var sample = "掛け算っていうのは AとBを使って AとBをかけた結果を返すんだよ";
         Japalisp.eval(Jexer.tokenizeWhole(sample), Japalisp.globalEnvironment);
         var startPrompt = function () {
