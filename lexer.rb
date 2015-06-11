@@ -25,6 +25,13 @@ class Lexer
     return [] if line.nil?
     line.strip!
     return [] if line.empty?
+    determine_splitter = lambda do |str, suffix, delimiter|
+      if str.split(suffix + delimiter).length > 1
+        suffix + delimiter
+      else
+        suffix
+      end
+    end
     tokens, rest_of_line = case
                         when line[/っていうのは/]
                           [[:DEFINE],
@@ -48,11 +55,7 @@ class Lexer
                         when line[/を(計算)?した(結果|もの)$/]
                           line.gsub!(/を(計算)?した(結果|もの)$/, '')
                           *arguments, _unused, id = line.split(/(で)/)
-                          splitter = if arguments.join.split(/と、/).length > 1
-                                       "と、"
-                                     else
-                                       "と"
-                                     end
+                          splitter = determine_splitter.call(arguments.join, "と", "、")
                           return [id] +
                           arguments.join.split(splitter).map do |arg|
                             line_tokenize(arg)
@@ -62,19 +65,22 @@ class Lexer
                             line.gsub(/してみて.*$/,'')]
                         when line[/を(かけた結果|かけたもの)/]
                           line.gsub!(/を(かけた結果|かけたもの).*$/,'')
+                          splitter = determine_splitter.call(line, "と", "、")
                           return ["*"] +
-                            line.split(/と、?/).map do |argument|
+                            line.split(splitter).map do |argument|
                               line_tokenize(argument)
                             end
                         when line[/を足した(もの|数)$/]
                           line.gsub!(/を足した(もの|数)/,'')
+                          splitter = determine_splitter.call(line, "に", "、")
                           return ["+"] +
-                            line.split(/に/).map do |argument|
+                            line.split(splitter).map do |argument|
                               line_tokenize(argument)
                             end
                         when line[/を引いた(もの|数)$/]
                           line.gsub!(/を引いた(もの|数)$/,'')
-                          *rest, _stripping, last = line.split(/(から)/)
+                          splitter = determine_splitter.call(line, "から", "、")
+                          *rest, _stripping, last = line.split(/(#{splitter})/)
                           return ["-"] +
                             [rest.join, last].map do |argument|
                               line_tokenize(argument)

@@ -26,6 +26,11 @@ Jexer.tokenize = function(line){
   if(line === undefined) return [];
   if(line === []) return [];
 
+  // we prioritize a suffix with delimiter
+  var determine_splitter = function(str){
+    return (str.split(/と、/).length > 1) ?  "と、" :  "と";
+  };
+
   var rest;
   if( line.match(/っていうのは/) ){
     rest = line.replace(/っていうのは.*$/,'');
@@ -52,7 +57,7 @@ Jexer.tokenize = function(line){
     var exp = rest.split(/(で)/);
     var id = exp.slice(-1).join(''),
         args = exp.slice(0,-2).join('');
-    var splitter = (args.split(/と、/).length > 1) ?  "と、" :  "と";
+    var splitter = determine_splitter(args);
     var argTokens = args.split(splitter).map(function(arg){
       return Jexer.tokenize(arg);
     });
@@ -62,7 +67,8 @@ Jexer.tokenize = function(line){
     return Jexer.tokenize(rest);
   }else if( line.match(/を(かけた結果|かけたもの)$/) ){
     rest = line.replace(/を(かけた結果|かけたもの).*$/, '');
-    var argTokens = rest.split(/と、?/).map(function(arg){
+    var splitter = determine_splitter(rest);
+    var argTokens = rest.split(splitter).map(function(arg){
       return Jexer.tokenize(arg);
     });
     return ["*"].concat(argTokens);
