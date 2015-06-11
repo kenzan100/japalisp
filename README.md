@@ -13,4 +13,13 @@ Also, I wanted to explain beauty of Japanese language to non-Japanese programmer
   * call funcation
   * do basic numeric calculation(using its underlying language)
 
-# Examples
+# How to use it
+Currently, I used Ruby and Javascript to implement its interpreter.
+
+## Ruby version
+There's `japalisp` bash script, please feed `example.jpl` to see what it's like(`./japalisp example.jpl`).
+If you want to contribute to its implementation, please look into `ruby` directory.
+
+## Javascript version
+Under `public/js` directory, there're `jexer.js` which tokenizes code, and `japalisp.js` which interprets the tokens.
+Also, [REPL in Github Page](https://kenzan100.github.io/japalisp/repl.html) is using this version.
