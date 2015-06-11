@@ -11,17 +11,20 @@
     <div class="wrapper">
       <div id="console"></div>
       <nav class="nav">
+        <a href=".">TOP</a>
         <a href="test.html">test(開発者向け)</a>
         <h3>最初から出来ることの例</h3>
         41と59で掛け算してみて<br/>
+        <br/>
+        同じ書き方で、<br/>「足し算」「引き算」ができます。
         <h3>何かを覚えさせたいときは</h3>
-        階乗っていうのは、<br/>
-        数字を使って、<br/>
-        もしその数字が1だったら1を返して、<br/>
+        べき乗っていうのは、<br/>
+        数字Aと数字Bを使って、<br/>
+        もし数字Bが0だったら1を返して、<br/>
         それ以外だったら<br/>
-        その数字と、その数字から1を引いた数で階乗をした結果をかけたものを返すんだよ。
+        数字Aと、数字Aと数字Bから1を引いた数でべき乗をした結果をかけたものを返すんだよ。
         <h3>計算をさせたいときは</h3>
-        10で階乗してみて！
+        10でべき乗してみて！
       </nav>
     </div>
     <script src="js/jexer.js" type="text/javascript" charset="utf-8"></script>
@@ -29,7 +32,7 @@
     <script>
       $(function () {
         var jqconsole = $('#console').jqconsole('Japalisp REPL「日本語で計算してみよう」\n実行するときは、Enterを二回押してください\n', '>>>');
-        var sample = "掛け算っていうのは AとBを使って AとBをかけた結果を返すんだよ";
+        var sample = "掛け算っていうのは AとBを使って AとBをかけた結果を返すんだよ。足し算っていうのは AとBを使って AにBを足したものを返すんだよ。引き算っていうのは AとBを使って AからBを引いたものを返すんだよ。";
         Japalisp.eval(Jexer.tokenizeWhole(sample), Japalisp.globalEnvironment);
         var startPrompt = function () {
           // Start the prompt with history enabled.
