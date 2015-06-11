@@ -7,8 +7,10 @@ I wanted non-programmer Japanese(my friends) to realize "thinking about computin
 Also, I wanted to explain beauty of Japanese language to non-Japanese programmer :)
 
 # What does it do?
-* If you're familiar with the book "The Little Schemer", this language should compute most functions introduced in the book Chapter 4 "Numbers Games".
-* which means you can:
+* If you're familiar with the book [The Little Schemer](https://mitpress.mit.edu/index.php?q=books/little-schemer),
+  most functions in the Chapter 4 "Numbers Games" will work if you can define them properly.
+  meaning you can:
+
   * define function
   * call funcation
   * do basic numeric calculation(using its underlying language)
