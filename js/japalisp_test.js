@@ -28,16 +28,18 @@ describe("Jexer", function() {
     it("should separate exponential Japanese sentence to tokens", function(){
       var sample ="べき乗っていうのは、\
       数字Aと数字Bを使って、\
-      もし数字Bが0なら1を返して、\
+      もし数字Bが0だったら1を返して、\
       それ以外なら\
-      数字Aと、数字Aと数字Bから1を引いた数でべき乗をした結果で俺の掛け算をしたものを返すんだよ。";
+      数字Aと、数字Aと数字Bから1を引いた数でべき乗をした結果をかけたものを返すんだよ。";
       var tokens = [[
         ["DEFINE", "べき乗"],
         ["数字A","数字B"],
         ["IF", ["==", ["数字B"], [0]], [1]],
         ["ELSE"],
-        ["俺の掛け算", ["数字A"], ["べき乗", ["数字A"], ["-", ["数字B"], [1]]]]
+        ["*", ["数字A"], ["べき乗", ["数字A"], ["-", ["数字B"], [1]]]]
       ]];
+      console.log(JSON.stringify(Jexer.tokenizeWhole(sample)));
+      console.log(JSON.stringify(tokens));
       expect(Jexer.tokenizeWhole(sample)).to.eql(tokens);
     });
   });
