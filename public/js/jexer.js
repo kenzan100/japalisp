@@ -27,8 +27,12 @@ Jexer.tokenize = function(line){
   if(line === []) return [];
 
   // we prioritize a suffix with delimiter
-  var determine_splitter = function(str){
-    return (str.split(/と、/).length > 1) ?  "と、" :  "と";
+  var determine_splitter = function(str, suffix, delimiter){
+    if(str.split(suffix + delimiter).length > 1){
+      return suffix + delimiter
+    }else{
+      return suffix
+    }
   };
 
   var rest;
@@ -57,7 +61,7 @@ Jexer.tokenize = function(line){
     var exp = rest.split(/(で)/);
     var id = exp.slice(-1).join(''),
         args = exp.slice(0,-2).join('');
-    var splitter = determine_splitter(args);
+    var splitter = determine_splitter(args, "と", "、");
     var argTokens = args.split(splitter).map(function(arg){
       return Jexer.tokenize(arg);
     });
@@ -67,20 +71,22 @@ Jexer.tokenize = function(line){
     return Jexer.tokenize(rest);
   }else if( line.match(/を(かけた結果|かけたもの)$/) ){
     rest = line.replace(/を(かけた結果|かけたもの).*$/, '');
-    var splitter = determine_splitter(rest);
+    var splitter = determine_splitter(rest, "と", "、");
     var argTokens = rest.split(splitter).map(function(arg){
       return Jexer.tokenize(arg);
     });
     return ["*"].concat(argTokens);
   }else if( line.match(/を足した(もの|数)$/) ){
     rest = line.replace(/を足した(もの|数)$/,'');
-    var argTokens = rest.split(/に/).map(function(arg){
+    var splitter = determine_splitter(rest, "に", "、");
+    var argTokens = rest.split(splitter).map(function(arg){
       return Jexer.tokenize(arg);
     });
     return ["+"].concat(argTokens);
   }else if( line.match(/を引いた(もの|数)$/) ){
     rest = line.replace(/を引いた(もの|数)$/,'');
-    var exp = rest.split(/(から)/);
+    var splitter = determine_splitter(rest, "から", "、");
+    var exp = rest.split(new RegExp('('+splitter+')'));
     var args = [exp.slice(0,-2).join('')].concat(exp.slice(-1));
     var argTokens = args.map(function(arg){
       return Jexer.tokenize(arg);
