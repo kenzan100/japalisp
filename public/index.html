@@ -48,7 +48,11 @@
             startPrompt();
           }, function(input) {
             // if true, input continues to next line.
-            return !input.match("  $");
+            if(input.match("\n$")){
+              return false;
+            }else{
+              return 0;
+            };
           });
         };
         startPrompt();
