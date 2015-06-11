@@ -2,11 +2,11 @@
 Japanese Programming Language as natural as possible.
 Its Github Page is [here](https://kenzan100.github.io/japalisp).
 
-# Why you made this?
+# Why I made this
 I wanted non-programmer Japanese(my friends) to realize "thinking about computing is one of the most exciting things the human mind can do (from The Little Schemer)“.
 Also, I wanted to explain beauty of Japanese language to non-Japanese programmer :)
 
-# What does it do?
+# What it does
 * If you're familiar with the book [The Little Schemer](https://mitpress.mit.edu/index.php?q=books/little-schemer),
   most functions in the Chapter 4 "Numbers Games" will work if you can define them properly.
   meaning you can:
