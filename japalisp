@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby -I.
+
+require "interpreter"
+require "readline"
+require "byebug"
+
+interpreter = Interpreter.new
+
+if file = ARGV.first
+  puts interpreter.eval(File.read(file))
+end
+
+puts "JapaLisp REPL, CTRC+C to quit"
+loop do
+  begin
+    all_text = ''
+    while(line = Readline::readline(">> ", true)) != ""
+      all_text << line + "\n" unless line.nil?
+    end
+    puts interpreter.eval(all_text)
+  rescue StandardError => e
+    puts e
+    puts e.backtrace
+  rescue Interrupt
+    puts
+    exit 0
+  end
+end
