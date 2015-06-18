@@ -2,10 +2,15 @@ var expect = chai.expect;
 
 describe("Jexer", function() {
   describe("tokenizeWhole", function() {
-    it("should separate a add1 Japanese sentence to series of tokens", function() {
+    it("should be able to call basic arithmetric functions from the start", function() {
       var sample = "1に1を足してみて";
       var tokens = [[
         ["+", [1], [1]]
+      ]];
+      expect(Jexer.tokenizeWhole(sample)).to.eql(tokens);
+      var sample = "19から1を引いてみて";
+      var tokens = [[
+        ["-", [19], [1]]
       ]];
       expect(Jexer.tokenizeWhole(sample)).to.eql(tokens);
     });
