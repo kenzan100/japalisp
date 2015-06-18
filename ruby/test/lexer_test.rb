@@ -17,6 +17,16 @@ class LexerTest < MiniTest::Test
   # b. label
   # c. defun
 
+  def test_add1
+    code = <<-CODE
+1に1を足してみて
+CODE
+    tokens = [[
+      ["+", [1], [1]]
+    ]]
+    assert_equal tokens, Lexer.new.tokenize(code)
+  end
+
   def test_define
     # (define (掛け算 数字A 数字B)
     #   (* 数字A 数字B))

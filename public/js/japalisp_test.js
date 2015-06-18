@@ -2,6 +2,13 @@ var expect = chai.expect;
 
 describe("Jexer", function() {
   describe("tokenizeWhole", function() {
+    it("should separate a add1 Japanese sentence to series of tokens", function() {
+      var sample = "1に1を足してみて";
+      var tokens = [[
+        ["+", [1], [1]]
+      ]];
+      expect(Jexer.tokenizeWhole(sample)).to.eql(tokens);
+    });
     it("should separate a multiplication Japanese sentence to series of tokens", function() {
       var sample = "掛け算っていうのは、 AとBを使って、 AとBをかけた結果を返すんだよ。";
       var tokens = [[
@@ -45,6 +52,11 @@ describe("Jexer", function() {
 
 describe("Japalisp", function() {
   describe("eval", function() {
+    it("should eval add1 from the start", function() {
+      var function_call_tokens = Jexer.tokenizeWhole("1に1を足してみて");
+      var computed_val = Japalisp.eval(function_call_tokens, Japalisp.globalEnvironment);
+      expect(computed_val).to.equal(2);
+    });
     it("should eval multiplication using user-defined lambda", function() {
       var sample = "掛け算っていうのは AとBを使って AとBをかけた結果を返すんだよ";
       Japalisp.eval(Jexer.tokenizeWhole(sample), Japalisp.globalEnvironment);
