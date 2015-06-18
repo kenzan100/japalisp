@@ -67,7 +67,7 @@ Jexer.tokenize = function(line){
     });
     return [id].concat(argTokens);
   }else if( line.match(/をかけ(てみて|た(結果|もの))$/) ){
-    rest = line.replace(/をかけた(てみて|(結果|もの)).*$/, '');
+    rest = line.replace(/をかけ(てみて|た(結果|もの)).*$/, '');
     var splitter = determine_splitter(rest, "と", "、");
     var argTokens = rest.split(splitter).map(function(arg){
       return Jexer.tokenize(arg);
@@ -81,7 +81,7 @@ Jexer.tokenize = function(line){
     });
     return ["+"].concat(argTokens);
   }else if( line.match(/を引い(てみて|た(もの|数))$/) ){
-    rest = line.replace(/を引いた(てみて|(もの|数))$/,'');
+    rest = line.replace(/を引い(てみて|た(もの|数))$/,'');
     var splitter = determine_splitter(rest, "から", "、");
     var exp = rest.split(new RegExp('('+splitter+')'));
     var args = [exp.slice(0,-2).join('')].concat(exp.slice(-1));
