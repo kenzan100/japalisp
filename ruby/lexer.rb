@@ -60,31 +60,31 @@ class Lexer
                           arguments.join.split(splitter).map do |arg|
                             line_tokenize(arg)
                           end
-                        when line[/してみて/]
-                          [[],
-                            line.gsub(/してみて.*$/,'')]
-                        when line[/を(かけた結果|かけたもの)/]
-                          line.gsub!(/を(かけた結果|かけたもの).*$/,'')
+                        when line[/をかけ(てみて|た(結果|もの))/]
+                          line.gsub!(/をかけ(てみて|た(結果|もの)).*$/,'')
                           splitter = determine_splitter.call(line, "と", "、")
                           return ["*"] +
                             line.split(splitter).map do |argument|
                               line_tokenize(argument)
                             end
-                        when line[/を足した(もの|数)$/]
-                          line.gsub!(/を足した(もの|数)/,'')
+                        when line[/を足し(てみて|た(もの|数))$/]
+                          line.gsub!(/を足し(てみて|た(もの|数))/,'')
                           splitter = determine_splitter.call(line, "に", "、")
                           return ["+"] +
                             line.split(splitter).map do |argument|
                               line_tokenize(argument)
                             end
-                        when line[/を引いた(もの|数)$/]
-                          line.gsub!(/を引いた(もの|数)$/,'')
+                        when line[/を引い(てみて|た(もの|数))$/]
+                          line.gsub!(/を引い(てみて|た(もの|数))$/,'')
                           splitter = determine_splitter.call(line, "から", "、")
                           *rest, _stripping, last = line.split(/(#{splitter})/)
                           return ["-"] +
                             [rest.join, last].map do |argument|
                               line_tokenize(argument)
                             end
+                        when line[/してみて/]
+                          [[],
+                            line.gsub(/してみて.*$/,'')]
                         when line[/その/]
                           [[],
                             line.gsub(/その/,'')]

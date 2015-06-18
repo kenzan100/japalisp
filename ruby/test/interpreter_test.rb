@@ -2,6 +2,13 @@ require "minitest/autorun"
 require_relative "../interpreter"
 
 class InterpreterTest < MiniTest::Test
+  def test_add1
+    code = <<-CODE
+1に1を足してみて
+CODE
+    assert_equal 2, Interpreter.new.eval(code)
+  end
+
   def test_method
     # (define (掛け算 数字A 数字B)
     #   (* 数字A 数字B))
