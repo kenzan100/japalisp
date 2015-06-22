@@ -52,8 +52,8 @@ class Lexer
                         when line[/を(返す|返して)/]
                           [[],
                             line.gsub(/を(返す|返して).*$/,'')]
-                        when line[/を(計算)?した(結果|もの)$/]
-                          line.gsub!(/を(計算)?した(結果|もの)$/, '')
+                        when line[/を(計算)?し(続け(てね|るんだよ)?|た(結果|もの))$/]
+                          line.gsub!(/を(計算)?し(続け(てね|るんだよ)?|た(結果|もの))$/, '')
                           *arguments, _unused, id = line.split(/(で)/)
                           splitter = determine_splitter.call(arguments.join, "と", "、")
                           return [id] +

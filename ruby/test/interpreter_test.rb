@@ -22,6 +22,19 @@ CODE
     assert_equal 30, Interpreter.new.eval(code)
   end
 
+  def test_custom_adder
+    code = <<-CODE
+僕の足し算っていうのは、
+こっちとあっちを使って、
+もしあっちが0ならこっちを返して、
+それ以外なら
+こっちに1を足した数と、あっちから1を引いた数で僕の足し算をし続けるんだよ。
+
+10と14で僕の足し算してみて！
+CODE
+    assert_equal 24, Interpreter.new.eval(code)
+  end
+
   def test_factorial
     code = <<-CODE
 階乗っていうのは、
