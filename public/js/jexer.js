@@ -56,8 +56,8 @@ Jexer.tokenize = function(line){
   }else if( line.match(/を(返す|返して)/) ){
     rest = line.replace(/を(返す|返して).*$/,'');
     return Jexer.tokenize(rest);
-  }else if( line.match(/を(計算)?した(結果|もの)$/)){
-    rest = line.replace(/を(計算)?した(結果|もの)$/,'');
+  }else if( line.match(/を(計算)?し(続け(てね|るんだよ)?|た(結果|もの))$/)){
+    rest = line.replace(/を(計算)?し(続け(てね|るんだよ)?|た(結果|もの))$/,'');
     var exp = rest.split(/(で)/);
     var id = exp.slice(-1).join(''),
         args = exp.slice(0,-2).join('');

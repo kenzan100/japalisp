@@ -62,6 +62,16 @@ describe("Japalisp", function() {
       var computed_val = Japalisp.eval(function_call_tokens, Japalisp.globalEnvironment);
       expect(computed_val).to.equal(2);
     });
+    it("should eval custom adder", function() {
+      var sample = "僕の足し算っていうのは、\
+      こっちとあっちを使って、\
+      もしあっちが0ならこっちを返して、\
+      それ以外なら\
+      こっちに1を足した数と、あっちから1を引いた数で僕の足し算をし続けるんだよ。";
+      Japalisp.eval(Jexer.tokenizeWhole(sample), Japalisp.globalEnvironment);
+      var computed_val = Japalisp.eval(Jexer.tokenizeWhole("10と3で僕の足し算してみて"), Japalisp.globalEnvironment);
+      expect(computed_val).to.equal(13);
+    });
     it("should eval multiplication using user-defined lambda", function() {
       var sample = "掛け算っていうのは AとBを使って AとBをかけた結果を返すんだよ";
       Japalisp.eval(Jexer.tokenizeWhole(sample), Japalisp.globalEnvironment);
