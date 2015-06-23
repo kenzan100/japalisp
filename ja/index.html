@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>もっとも自然な日本語プログラミング言語 Japalisp</title>
+    <link rel="stylesheet" media="all" href="../public/css/style.css">
+    <link rel="stylesheet" media="all" href="../public/css/japalisp_repl.css">
+    <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/2.11.0.jqconsole.min.js" type="text/javascript" charset="utf-8"></script>
+  </head>
+  <body>
+    <div class="wrapper">
+      <div id="console" style="margin: 10px 20px; width: 65%;">
+        <h2>足し算を自分でつくってみよう</h2>
+
+        <h3>「ねぇねぇ、足し算ってどうやるの？」</h3>
+        <p>
+          そう聞いてきたのは、<a href="../" target="_blank">Japalisp（ジャパリスプ）</a>くん。
+          この記事の目的は、このジャパリスプくんに足し算の仕方を教えること。
+        </p>
+
+        <hr>
+
+        <p>
+          足し算を、小学校で最初に習ったときまで遡って考えてみよう。<br><br>
+          「ここに、３個のりんごがあります。
+          こちらには、４個のりんごがあります。
+          全部で、何個のりんごがあるでしょう？」
+        </p>
+        <img width="600" src="../public/img/JapalispTutorial.001.jpg"><br>
+
+        <p>
+          3 + 4 を思い浮かべてはいけない。
+          「＋」という記号をあなたが思い浮かべるのは、もうあなたが足し算を知っているからだ。
+          足し算をまだ知らないJapalisp（ジャパリスプ）くんには、どうやって足し算を教えたら良いんだろう？
+        </p>
+        <p>
+          一つのやり方は、おそらく自分で数えやすい順に、
+          「１個、２個、３個．．．６個、７個！」という風に、一つずつ指をさしながら数えるやり方だろう。
+        </p>
+        <p>
+          ここで行われているのは、
+          こっちは３個、こっちは４個、と数えていたものを、
+          まとめて数えるようにすることだよね。
+        </p>
+        <p>
+          ってことは、別々にあったものを「くっつける」と、足し算ができるはずだ。よしっ！<br>
+          「Japalispくん！左のりんごと、右のりんごをくっつけて数えてごらん！」<br>
+          「んー、くっつけるって、僕まだ知らないなー。。
+            僕、0は分かるよ！何もないってことだよね。
+            あと、一つ増やすっていうのと、一つ減らすっていうのは分かるよ！」
+        </p>
+        <p>
+          Japalispくんは、一つずつだったら、増やしたり減らしたりできることが分かった。
+          なので、１つずつ、えっちらほっちらとりんごを移動させてみよう。
+        </p>
+        <p>
+          <img src="../public/img/TrimmedJapalispTutorialMovieSmall.gif">
+        </p>
+        <hr>
+        <p>
+          これだけわかれば、もう君はJapalisp（ジャパリスプ）くんに足し算をお願いすることができる。
+          次の文章が、実際に彼に「僕の足し算」をやってもらうためのお願い文。
+        </p>
+        <p style="font-size:21px;">
+          僕の足し算っていうのは、<br>
+          こっちとあっちを使って、<br>
+          もしあっちが0ならこっちを返して、<br>
+          それ以外なら<br>
+          こっちで一つ増やした数と、あっちで一つ減らした数で僕の足し算をし続けるんだよ。<br>
+        </p>
+        <p>
+          上の文章を、Japalispくんが住む遊び場にコピペしてみよう。
+          なにが返ってきたかな？
+        </p>
+        <p>
+          「僕の足し算だね！」と返ってきたら、とりあえずは安心して。
+          あなたが伝えたお願いが、Japlispくんに伝わったという合図だから。
+          ここからがJapalispくんのすごい所。
+          彼は、画面を閉じるまでは、僕の足し算の仕方を決して忘れることはない。
+        </p>
+        <p>
+          まずは、彼が足し算を正しくできるか確かめてみよう。
+          <a href="">遊び場</a>で、「10と4で僕の足し算してみて！」って言ってみて。
+          なんて返ってきたかな？
+        </p>
+        <p>
+          「14だよ！」って返ってきたなら、彼は僕の足し算を理解してくれているってことだ！
+          <strong>やったね！</strong><br>
+          14ができるのは何てことないかもしれない。<br>
+          でも、「78と39で僕の足し算」は？
+          「12345と23456で僕の足し算」は？
+        </p>
+        <p>
+          彼にとっては、これも何てことない計算だ。
+          それもこれも、君が僕の足し算のやり方を、彼に教えてあげたから。
+          おめでとう！
+        </p>
+        <p>
+          ここで一旦休憩しよう。と思ったら、
+          興奮したJapalispくんは、次のこんなことを聞いてきた。
+        </p>
+
+        <h2>ねぇねぇ、僕の引き算ってどうやるの？</h2>
+        <p>
+          ふぅ、ここから先は、読者のあなたに、Japalispくんに教える役目を担ってほしい。
+          もしあなたのJapalispくんの遊び場で、僕の引き算が伝わったと思ったら、
+          「僕の引き算っていうのは、、」から始まるお願い文を、下の何らかの方法で僕に教えてほしい。
+        </p>
+        <p>
+          1. Twitterで、#僕の引き算をつけてつぶやく。<br>
+          2. 直接Eメールを送る。<br>
+          3. GithubでIssueとして回答を書く（バグがあると思ったらプルリクもね！）<br>
+        </p>
+        <p>
+          Japalispくんはまだ足し算を教わったばかりだけど、僕たちがお願い文を正しく下記さえすれば、
+          ものすごい量の計算をすぐにやってくれるようになる。
+          下にあげるのはそのほんの一例。
+        </p>
+        <p>
+          ・掛け算<br>
+          ・大小関係<br>
+          ・イコール<br>
+          ・べき乗<br>
+          ・割り算<br>
+          ・階乗<br>
+        </p>
+        <p>
+          ここまで読んだあなたなら、Japalispくんにお願いする方法のコツを、すぐに掴めるはず。
+          計算そのものが楽しいって感覚が、すぐにやってくると思う。
+          それでは、あなたの解答を待っています。
+        </p>
+      </div>
+      <nav class="nav">
+        <a href=".">TOP</a>
+        <a href="test.html">test(開発者向け)</a>
+        <h3>目次</h3>
+        <li>足し算を自分でつくってみよう</li>
+      </nav>
+    </div>
+    <script src="js/jexer.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/japalisp.js" type="text/javascript" charset="utf-8"></script>
+    <script>
+      $(function () {
+        var jqconsole = $('#console').jqconsole('Japalisp REPL「日本語で計算してみよう」\n実行するときは、Enterを二回押してください\n', '>>>');
+        var sample = "掛け算っていうのは AとBを使って AとBをかけた結果を返すんだよ。足し算っていうのは AとBを使って AにBを足したものを返すんだよ。引き算っていうのは AとBを使って AからBを引いたものを返すんだよ。";
+        Japalisp.eval(Jexer.tokenizeWhole(sample), Japalisp.globalEnvironment);
+        var startPrompt = function () {
+          // Start the prompt with history enabled.
+          jqconsole.Prompt(true, function (input) {
+            // Output input with the class jqconsole-output.
+            try{
+              var input = input.trim();
+              var tokens = Jexer.tokenizeWhole(input);
+              var retval = Japalisp.eval(tokens, Japalisp.globalEnvironment);
+              jqconsole.Write(retval + 'だね!' + '\n', 'jqconsole-output');
+            }
+            catch(e){
+              jqconsole.Write(e + '\n', 'jqconsole-output');
+            }
+            // Restart the prompt.
+            startPrompt();
+          }, function(input) {
+            // if true, input continues to next line.
+            if(input.match("\n$")){
+              return false;
+            }else{
+              return 0;
+            };
+          });
+        };
+        startPrompt();
+      });
+    </script>
+  </body>
+</html>
