@@ -101,7 +101,7 @@
         <h2>ねぇねぇ、引き算ってどうやるの？</h2>
         <p>
           ふぅ、ここから先は、読者のあなたに、Japalispくんに教える役目を担ってほしい。
-          もしあなたの<a href="../repl.html" target="_blank">Japalispくんの遊び場</a>で、僕の引き算がきちんt伝わったと思ったら、
+          もしあなたの<a href="../repl.html" target="_blank">Japalispくんの遊び場</a>で、僕の引き算がきちんと伝わったと思ったら、
           「僕の引き算っていうのは、、」から始まるお願い文を、下の何らかの方法で僕に教えてほしい。
         </p>
         <p>
@@ -135,39 +135,5 @@
         <li>足し算を自分でつくってみよう</li>
       </nav>
     </div>
-    <script src="js/jexer.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/japalisp.js" type="text/javascript" charset="utf-8"></script>
-    <script>
-      $(function () {
-        var jqconsole = $('#console').jqconsole('Japalisp REPL「日本語で計算してみよう」\n実行するときは、Enterを二回押してください\n', '>>>');
-        var sample = "掛け算っていうのは AとBを使って AとBをかけた結果を返すんだよ。足し算っていうのは AとBを使って AにBを足したものを返すんだよ。引き算っていうのは AとBを使って AからBを引いたものを返すんだよ。";
-        Japalisp.eval(Jexer.tokenizeWhole(sample), Japalisp.globalEnvironment);
-        var startPrompt = function () {
-          // Start the prompt with history enabled.
-          jqconsole.Prompt(true, function (input) {
-            // Output input with the class jqconsole-output.
-            try{
-              var input = input.trim();
-              var tokens = Jexer.tokenizeWhole(input);
-              var retval = Japalisp.eval(tokens, Japalisp.globalEnvironment);
-              jqconsole.Write(retval + 'だね!' + '\n', 'jqconsole-output');
-            }
-            catch(e){
-              jqconsole.Write(e + '\n', 'jqconsole-output');
-            }
-            // Restart the prompt.
-            startPrompt();
-          }, function(input) {
-            // if true, input continues to next line.
-            if(input.match("\n$")){
-              return false;
-            }else{
-              return 0;
-            };
-          });
-        };
-        startPrompt();
-      });
-    </script>
   </body>
 </html>
