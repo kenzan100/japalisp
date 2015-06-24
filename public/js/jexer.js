@@ -80,6 +80,12 @@ Jexer.tokenize = function(line){
       return Jexer.tokenize(arg);
     });
     return ["+"].concat(argTokens);
+  }else if( line.match(/で一つ増やした数$/) ){
+    rest = line.replace(/で一つ増やした数$/,'');
+    return ["+", Jexer.tokenize(rest), [1]];
+  }else if( line.match(/で一つ減らした数$/) ){
+    rest = line.replace(/で一つ減らした数$/,'');
+    return ["-", Jexer.tokenize(rest), [1]];
   }else if( line.match(/を引い(てみて|た(もの|数))$/) ){
     rest = line.replace(/を引い(てみて|た(もの|数))$/,'');
     var splitter = determine_splitter(rest, "から", "、");
