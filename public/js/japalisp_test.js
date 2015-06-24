@@ -75,7 +75,7 @@ describe("Japalisp", function() {
     it("should eval more radical custom adder", function(){
       var sample = "僕の足し算っていうのは、\
       こっちとあっちを使って、\
-      もしあっちが0ならこっちを返して、\
+      もしあっちが0ならこっちを教えてね、\
       それ以外なら\
       こっちで一つ増やした数と、あっちで一つ減らした数で僕の足し算をし続けるんだよ。";
       Japalisp.eval(Jexer.tokenizeWhole(sample), Japalisp.globalEnvironment);
