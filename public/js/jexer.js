@@ -53,8 +53,8 @@ Jexer.tokenize = function(line){
   }else if( line.match(/を使って/) ){
     rest = line.replace(/を使って.*$/,'');
     return Jexer.tokenize(rest);
-  }else if( line.match(/を(返す|返して)/) ){
-    rest = line.replace(/を(返す|返して).*$/,'');
+  }else if( line.match(/を(返す|返して|教えてね?)/) ){
+    rest = line.replace(/を(返す|返して|教えてね?).*$/,'');
     return Jexer.tokenize(rest);
   }else if( line.match(/を(計算)?し(続け(てね|るんだよ)?|た(結果|もの))$/)){
     rest = line.replace(/を(計算)?し(続け(てね|るんだよ)?|た(結果|もの))$/,'');
