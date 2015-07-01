@@ -62,6 +62,11 @@ describe("Japalisp", function() {
       var computed_val = Japalisp.eval(function_call_tokens, Japalisp.globalEnvironment);
       expect(computed_val).to.equal(2);
     });
+    it("should eval addition even if I use multibyte Japanese numeric characters", function() {
+      var function_call_tokens = Jexer.tokenizeWhole("１０に５を足してみて");
+      var computed_val = Japalisp.eval(function_call_tokens, Japalisp.globalEnvironment);
+      expect(computed_val).to.equal(15);
+    });
     it("should eval custom adder", function() {
       var sample = "僕の足し算っていうのは、\
       こっちとあっちを使って、\
