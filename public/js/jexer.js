@@ -118,6 +118,9 @@ Jexer.tokenize = function(line){
     return line.split(/と、?/).reduce(function(accu,partial_line){
       return accu.concat(Jexer.tokenize(partial_line));
     },[]);
+  }else if( line.match(/[０-９]+/) ){
+    var singleByte = line.replace(/[０-９]/g,function(s){return String.fromCharCode(s.charCodeAt(0)-0xFEE0)})
+    return [parseInt(singleByte.match(/[0-9]+/))]
   }else if( line.match(/[0-9]+/) ){
     return [parseInt(line.match(/[0-9]+/))]
   }else{
