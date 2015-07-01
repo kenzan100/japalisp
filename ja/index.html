@@ -2,23 +2,37 @@
 <html>
   <head>
     <title>もっとも自然な日本語プログラミング言語 Japalisp</title>
-    <link rel="stylesheet" media="all" href="../public/css/style.css">
-    <link rel="stylesheet" media="all" href="../public/css/japalisp_repl.css">
-    <script src="js/jquery-1.11.3.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/2.11.0.jqconsole.min.js" type="text/javascript" charset="utf-8"></script>
+    <link rel="stylesheet" media="all" href="/public/css/ja_tutorial.css">
   </head>
   <body>
-    <div class="wrapper">
-      <div id="console" style="margin: 10px 20px; width: 65%;">
-        <h1>足し算を自分でつくってみよう</h1>
+    <div class="wrap">
+      <div class="container">
 
-        <h2>「ねぇねぇ、足し算ってどうやるの？」</h2>
+        <h1>プログラマーっていったい何やってるのかを、日本語だけで説明してみる</h1>
+
+        <h2>背景</h2>
         <p>
-          そう聞いてきたのは、<a href="../repl.html" target="_blank">Japalisp（ジャパリスプ）</a>くん。
-          この記事の目的は、このジャパリスプくんに足し算の仕方を教えること。
+          ニューヨークのプログラミングラボ
+          <a target="_blank" href="https://www.recurse.com">Recurse Center</a>
+          に滞在中、ひょんなことから
+          <a target="_blank" href="http://kenzan100.github.io/japalisp">日本語の話し言葉でLispっぽいプログラムが書けるJapalisp</a>
+          というプログラミング言語をつくりました。
+          つくったからには、それを何かに活かせないかと思い下記チュートリアルを書いてみました。
+          <a target="_blank" href="mailto:s04155yo@gmail.com">興味持たれた方は、作者までご連絡ください。</a>
         </p>
 
         <hr>
+
+        <h1>序章：足し算を自分でつくってみよう</h1>
+
+        <h2>
+          <img style="vertical-align:middle;" width="50" src="../public/img/Japalisp1.jpg"/>
+          「ねぇねぇ、足し算ってどうやるの？」
+        </h2>
+        <p>
+          そう聞いてきたのは、よちよち歩きのプログラミング言語 <a href="../repl.html" target="_blank">Japalisp（ジャパリスプ）</a>くん。
+          この記事の目的は、このジャパリスプくんに足し算の仕方を教えること。
+        </p>
 
         <p>
           足し算を、小学校で最初に習ったときまで遡って考えてみよう。<br><br>
@@ -30,24 +44,29 @@
 
         <p>
           どうか 3 + 4 を思い浮かべないでほしい。
-          「＋」という記号をあなたが思い浮かべるのは、もうあなたが足し算を知っているからだ。
-          足し算をまだ知らないJapalisp（ジャパリスプ）くんには、どうやって足し算を教えたら良いんだろう？
+          「＋」という記号をあなたが思い浮かべるのは、もうあなたが足し算を知っているから。
+          足し算をまだ知らないJapalisp（ジャパリスプ）くんには、どうやって足し算を教えたら良いのだろう？
         </p>
         <p>
           一つのやり方は、おそらく自分で数えやすい順に、
           「１個、２個、３個．．．６個、７個！」という風に、一つずつ指をさしながら数えるやり方だろう。
         </p>
         <p>
-          ここで行われているのは、
+          このやり方は要するに、
           こっちは３個、こっちは４個、と数えていたものを、
-          まとめて数えるようにすることだよね。
+          まとめて数えるようにすること。<br/>
+          ってことは、別々にあったものを「くっつける」と、足し算ができるはずだ。よしっ！
         </p>
         <p>
-          ってことは、別々にあったものを「くっつける」と、足し算ができるはずだ。よしっ！<br><br>
-          「Japalispくん！左のりんごと、右のりんごをくっつけて数えてごらん！」<br>
-          「んー、くっつけるって、僕まだ知らないなー。。
-            僕、0は分かるよ！何もないってことだよね。
+          「Japalispくん！左のりんごと、右のりんごをくっつけて数えてごらん！」
+        </p>
+        <p>
+          <img style="float:left; margin-right:10px; vertical-align:middle;" width="50" src="../public/img/Japalisp1.jpg"/>
+          <h3>
+            「んー、くっつけるって、僕まだ知らないなー。。
+            でも僕、0は分かるよ！何もないってことだよね。
             あと、一つ増やすっていうのと、一つ減らすっていうのは分かるよ！」
+          </h3>
         </p>
         <p>
           Japalispくんは、一つずつだったら、増やしたり減らしたりできることが分かった。
@@ -59,7 +78,8 @@
         <hr>
         <p>
           これだけわかれば、もう君はJapalisp（ジャパリスプ）くんに足し算をお願いすることができる。
-          次の文章が、実際に彼に「僕の足し算」をやってもらうためのお願い文。
+          次の文章が、実際に彼に「僕の足し算」をやってもらうためのお願い文。<br/>
+          この文章を、<a href="/repl.html" target="_blank">Japalispくんが住む遊び場</a>にコピペしてみよう。なにが返ってきたかな？
         </p>
         <p style="font-size:21px;">
           僕の足し算っていうのは、<br>
@@ -69,9 +89,6 @@
           こっちで一つ増やした数と、あっちで一つ減らした数で僕の足し算をし続けるんだよ。<br>
         </p>
         <p>
-          上の文章を、<a href="../repl.html" target="_blank">Japalispくんが住む遊び場</a>にコピペしてみよう。なにが返ってきたかな？
-        </p>
-        <p>
           「僕の足し算だね！」と返ってきたら、とりあえずは安心して。
           あなたが伝えたお願いが、Japlispくんに伝わったという合図だから。
           ここからがJapalispくんのすごい所。
@@ -79,7 +96,7 @@
         </p>
         <p>
           まずは、彼が足し算を正しくできるか確かめてみよう。
-          <a href="../repl.html" target="_blank">遊び場</a>で、「10と4で僕の足し算してみて！」って言ってみて。
+          お願い文をコピペした遊び場で、「10と4で僕の足し算してみて！」って言ってみて。
           なんて返ってきたかな？
         </p>
         <p>
@@ -87,27 +104,30 @@
           <strong>やったね！</strong><br><br>
           もしかしたら、10と4で足し算ができるのは何てことないかもしれない。<br>
           でも、「78と39で僕の足し算」は？
-          「12345と23456で僕の足し算」は？
+          「5678と1234で僕の足し算」は？
         </p>
         <p>
           彼にとっては、これも同じくらい何てことない計算だ。それもこれも、君が僕の足し算のやり方を、彼に教えてあげたから。
           おめでとう！
         </p>
         <p>
-          ここで一旦休憩しよう。と思ったら、
-          興奮したJapalispくんは、次のこんなことを聞いてきた。
+          ここで一旦休憩しよう。と思ったら、興奮したJapalispくんは、次のこんなことを聞いてきた。
         </p>
 
-        <h2>ねぇねぇ、引き算ってどうやるの？</h2>
+        <h2>
+          <img style="vertical-align:middle;" width="50" src="../public/img/Japalisp1.jpg"/>
+          「ねぇねぇ、引き算ってどうやるの？」
+        </h2>
+
         <p>
-          ふぅ、ここから先は、読者のあなたに、Japalispくんに教える役目を担ってほしい。
-          もしあなたの<a href="../repl.html" target="_blank">Japalispくんの遊び場</a>で、僕の引き算がきちんと伝わったと思ったら、
+          ふぅ、ここから先は、読者のあなたに、Japalispくんに計算を教える役目を担ってほしい。
+          もしあなたの<a href="../repl.html" target="_blank">Japalispくんの遊び場</a>で、Japalispくんに引き算のやり方がきちんと伝わったと思ったら、
           「僕の引き算っていうのは、、」から始まるお願い文を、下の何らかの方法で僕に教えてほしい。
         </p>
         <p>
-          1. Twitterで、#僕の引き算 をつけてつぶやく。<br>
+          1. <a href="https://twitter.com/intent/tweet?hashtags=僕の引き算" target="_blank">Twitterで、#僕の引き算 をつけてつぶやく。</a><br>
           2. <a href="mailto:name@email.com" target="_blank">Japalispくんの生みの親にメールを送る。</a><br>
-          3. GithubでIssueとして回答を書く（バグがあると思ったらプルリクもね！）<br>
+          3. <a href="https://github.com/kenzan100/japalisp/issues/new" target="_blank">GithubでIssueとして回答を書く</a>（バグがあると思ったらプルリクもね！）<br>
         </p>
         <p>
           Japalispくんはまだ足し算を習ったばかりだけど、僕たちがお願い文を正しく下記さえすれば、
@@ -125,15 +145,10 @@
         <p>
           ここまで読んだあなたなら、Japalispくんにお願いする方法のコツを、すぐに掴めるはず。
           計算そのものが楽しいって感覚が、すぐにやってくると思う。<br><br>
-          それでは、Japlispの生みの親として、あなたの解答を心待ちにしています。
+          Japlispの生みの親として、あなたの解答を心待ちにしています。
         </p>
+        <h3>続く</h3>
       </div>
-      <nav class="nav">
-        <a href=".">TOP</a>
-        <a href="test.html">test(開発者向け)</a>
-        <h3>目次</h3>
-        <li>足し算を自分でつくってみよう</li>
-      </nav>
     </div>
   </body>
 </html>
