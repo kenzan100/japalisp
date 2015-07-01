@@ -1,0 +1,38 @@
+html,
+body {
+  overflow-x: hidden;
+}
+
+html {
+  /* font-family: "PT Serif", Georgia, "Times New Roman", serif; */
+  font-family: "PT Sans", Helvetica, Arial, sans-serif
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  color: #313131;
+  letter-spacing: -.025rem;
+}
+
+.wrap {
+  position: relative;
+  width: 100%;
+}
+
+.container {
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 38em) {
+  .container {
+    max-width: 32rem;
+  }
+}
+@media (min-width: 56em) {
+  .container {
+    max-width: 38rem;
+  }
+}
+
