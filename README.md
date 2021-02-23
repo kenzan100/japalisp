@@ -1,5 +1,5 @@
 # Japalisp
-Japanese Programming Language as natural as possible.
+Japanese Programming Language made as natural as possible.
 Its Github Page is [here](https://kenzan100.github.io/japalisp).
 
 # Why I made this
